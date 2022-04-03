@@ -6,7 +6,7 @@ from tkinter import filedialog
 import os
 import time
 import shutil
-
+username=os.getlogin()
 
 class Login:
     def __init__(self, root):
@@ -42,13 +42,24 @@ class Login:
                 ff = []
 
                 def file_copy():
-                    with open('FT_logs.txt') as file:
+                    with open(fr'C:\Users\{username}\Desktop\FT2_logs.txt') as file:
                         for line in file:
                             ff.append(line)
-
                 def copyx():
+                    tt = ''
+                    with open(fr'C:\Users\{username}\Desktop\FT_logs.txt') as file:
+                        for line in file:
+                            line = tt
+
                     for f in ff:
-                        shutil.copyfile(f, rf"\\mnhazfs\nonword\halbanot\Both\AA\AA")
+
+                        shutil.copyfile(src=f,dst=tt)
+
+                def delete_logs():
+                    os.remove(fr'C:\Users\{username}\Desktop\FT_logs.txt')
+                    os.remove(fr'C:\Users\{username}\Desktop\FT2_logs.txt')
+
+
 
 
 
@@ -70,6 +81,8 @@ class Login:
                 bar.place(x=450, y=340)
                 Label(self.root, textvariable=percent, bg="white").place(x=700, y=340)
                 file_copy()
+                copyx()
+                delete_logs()
                 start()
                 messagebox.showinfo(title=None, message="files uploaded successfully")
                 main_page()
@@ -78,17 +91,16 @@ class Login:
 
                 root.filename = filedialog.askopenfilename(initialdir="/", title="Select A File",
                                                            filetypes=(("jpg files", "*.jpg"), ("all files", "*.*")))
-                path = "C:/Users/%username%/Desktop/FT_logs.txt"
+                path = f"C:/Users/{username}/Desktop/FT_logs.txt"
                 if os.path.isfile(path) is True:
-                    with open(rf'C:\Users\ca8855176\Desktop\FT_logs.txt', 'a+') as f:
+                    with open(rf'C:\Users\{username}\Desktop\FT_logs.txt', 'a+') as f:
                         f.write(root.filename + '\n')
 
                 else:
-                    filehandler = open(rf"C:/Users/ca8855176/Desktop/FT_logs.txt", "a")
-                    with open(rf'C:\Users\ca8855176\Desktop\FT_logs.txt', 'a+') as f:
+                    filehandler = open(rf"C:/Users/{username}/Desktop/FT_logs.txt", "a")
+                    with open(rf'C:\Users\{username}\Desktop\FT_logs.txt', 'a+') as f:
                         f.write(root.filename + '\n')
 
-                # shutil.copyfile(root.filename, rf"\\mnhazfs\nonword\halbanot\Both\{directory_name}\{directory_whoto}" )
 
             Label(text="Even & IDF", font=("Impact", 35, "bold"), fg="black", bg="white").place(x=470, y=180)
             Button(cursor="hand2", text="Return", bd=0, command=main_page, font=("Goudy old style", 15),
@@ -133,7 +145,18 @@ class Login:
                 directory_whoto = self.whoto.get()
                 final2 = os.path.isdir(rf"\\mnhazfs\nonword\halbanot\Both\{directory_name}\{directory_whoto}")
                 if not final2:
-                    os.mkdir(rf"\\mnhazfs\nonword\halbanot\Both\{directory_name}\{directory_whoto}")
+                    os.mkdir(rf"\\mnhazfs\nonword\halbanot\Both\{directory_name}\{directory_whoto}")\
+
+                a = rf"\\mnhazfs\nonword\halbanot\Both\{directory_name}\{directory_whoto}"
+                path = f"C:/Users/{username}/Desktop/FT2_logs.txt"
+                if os.path.isfile(path) is True:
+                    with open(rf'C:\Users\{username}\Desktop\FT2_logs.txt', 'a+') as f:
+                        f.write(a)
+
+                else:
+                    filehandler = open(rf"C:/Users/{username}/Desktop/FT2_logs.txt", "a")
+                    with open(rf'C:\Users\{username}\Desktop\FT_logs.txt', 'a+') as f:
+                        f.write(a)
                 both_t_page()
 
             Button(cursor="hand2", text="Confirm", bd=0, command=create_folder, font=("Goudy old style", 15),
@@ -218,4 +241,3 @@ label_bgImage = Label(root, image=bg)
 label_bgImage.place(x=0, y=0)
 obj = Login(root)
 root.mainloop()
-
