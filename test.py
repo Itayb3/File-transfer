@@ -39,11 +39,24 @@ class Login:
             Frame(root, bg="white", ).place(x=330, y=150, width=500, height=400)
 
             def prog():
+                ff = []
+
+                def file_copy():
+                    with open('FT_logs.txt') as file:
+                        for line in file:
+                            ff.append(line)
+
+                def copyx():
+                    for f in ff:
+                        shutil.copyfile(f, rf"\\mnhazfs\nonword\halbanot\Both\AA\AA")
+
+
+
                 def start():
                     GB = 100
                     download = 0
                     speed = 1
-                    while (download < GB):
+                    while download < GB:
                         time.sleep(0.09)
                         bar['value'] += (speed / GB) * 100
                         download += speed
@@ -54,8 +67,9 @@ class Login:
                 percent = StringVar()
                 text = StringVar()
                 bar = Progressbar(root, orient=HORIZONTAL, length=220)
-                bar.place(x= 450, y=340)
+                bar.place(x=450, y=340)
                 Label(self.root, textvariable=percent, bg="white").place(x=700, y=340)
+                file_copy()
                 start()
                 messagebox.showinfo(title=None, message="files uploaded successfully")
                 main_page()
@@ -74,14 +88,13 @@ class Login:
                     with open(rf'C:\Users\ca8855176\Desktop\FT_logs.txt', 'a+') as f:
                         f.write(root.filename + '\n')
 
-
-                #shutil.copyfile(root.filename, rf"\\mnhazfs\nonword\halbanot\Both\{directory_name}\{directory_whoto}" )
+                # shutil.copyfile(root.filename, rf"\\mnhazfs\nonword\halbanot\Both\{directory_name}\{directory_whoto}" )
 
             Label(text="Even & IDF", font=("Impact", 35, "bold"), fg="black", bg="white").place(x=470, y=180)
             Button(cursor="hand2", text="Return", bd=0, command=main_page, font=("Goudy old style", 15),
                    bg="#6162FF", fg="white").place(x=600, y=475, width=100, height=40)
             Button(cursor="hand2", text="Upload files", bd=0, command=files, font=("Goudy old style", 15),
-                fg="black").place(x=470, y=300, width=200, height=100)
+                   fg="black").place(x=470, y=300, width=200, height=100)
             Button(cursor="hand2", text="Confirm", bd=0, command=prog, font=("Goudy old style", 15),
                    bg="#6162FF", fg="white").place(x=450, y=475, width=100, height=40)
 
@@ -192,6 +205,7 @@ class Login:
 
             Label(text="Who receives: ", font=("Goudy old style", 15, "bold"), fg="black", bg="white").place(
                 x=510, y=350)
+
         main_page()
 
 
@@ -204,3 +218,4 @@ label_bgImage = Label(root, image=bg)
 label_bgImage.place(x=0, y=0)
 obj = Login(root)
 root.mainloop()
+
