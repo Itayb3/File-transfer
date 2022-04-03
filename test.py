@@ -6,6 +6,8 @@ from tkinter import filedialog
 import os
 import time
 import shutil
+global a , b
+
 
 class Login:
     def __init__(self, root):
@@ -115,7 +117,7 @@ class Login:
             self.name = Entry(font=("Goudy old style", 15), bg="#E7E6E6")
             self.name.place(x=470, y=310)
 
-            def create_folder(directory_whoto,directory_name):
+            def create_folder():
                 parent_dir = rf"\\mnhazfs\nonword\halbanot\Both"
                 directory_name = self.name.get()
                 final = os.path.isdir(rf"\\mnhazfs\nonword\halbanot\Both\{directory_name}")
@@ -151,13 +153,14 @@ class Login:
             def create_folder():
                 parent_dir = rf"\\mnhazfs\nonword\halbanot\Even"
                 directory_name = self.name.get()
-                path = os.path.join(parent_dir, directory_name)
-                os.mkdir(path)
+                final = os.path.isdir(rf"\\mnhazfs\nonword\halbanot\Even\{directory_name}")
+                if not final:
+                    os.mkdir(rf"\\mnhazfs\nonword\halbanot\Even\{directory_name}")
                 directory_whoto = self.whoto.get()
-
                 parent_dir2 = rf"\\mnhazfs\nonword\halbanot\Even\{directory_name}"
-                path1 = os.path.join(parent_dir2, directory_whoto)
-                os.mkdir(path1)
+                final2 = os.path.isdir(rf"\\mnhazfs\nonword\halbanot\Even\{directory_name}\{directory_whoto}")
+                if not final2:
+                    os.mkdir(rf"\\mnhazfs\nonword\halbanot\Even\{directory_name}\{directory_whoto}")
                 even_t_page()
 
             Label(text="Even", font=("Impact", 35, "bold"), fg="#6162FF", bg="white").place(x=529, y=180)
@@ -181,13 +184,14 @@ class Login:
             def create_folder():
                 parent_dir = rf"\\mnhazfs\nonword\halbanot\IDF"
                 directory_name = self.name.get()
-                path = os.path.join(parent_dir, directory_name)
-                os.mkdir(path)
+                final = os.path.isdir(rf"\\mnhazfs\nonword\halbanot\IDF\{directory_name}")
+                if not final:
+                    os.mkdir(rf"\\mnhazfs\nonword\halbanot\IDF\{directory_name}")
                 directory_whoto = self.whoto.get()
-
                 parent_dir2 = rf"\\mnhazfs\nonword\halbanot\IDF\{directory_name}"
-                path1 = os.path.join(parent_dir2, directory_whoto)
-                os.mkdir(path1)
+                final2 = os.path.isdir(rf"\\mnhazfs\nonword\halbanot\IDF\{directory_name}\{directory_whoto}")
+                if not final2:
+                    os.mkdir(rf"\\mnhazfs\nonword\halbanot\IDF\{directory_name}\{directory_whoto}")
                 idf_t_page()
 
             Button(cursor="hand2", text="Confirm", bd=0, command=create_folder, font=("Goudy old style", 15),
@@ -201,7 +205,6 @@ class Login:
 
             Label(text="Who receives: ", font=("Goudy old style", 15, "bold"), fg="black", bg="white").place(
                 x=510, y=350)
-
         main_page()
 
 
@@ -217,4 +220,3 @@ label_bgImage = Label(root, image=bg)
 label_bgImage.place(x=0, y=0)
 obj = Login(root)
 root.mainloop()
-
