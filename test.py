@@ -61,9 +61,20 @@ class Login:
                 main_page()
 
             def files():
+
                 root.filename = filedialog.askopenfilename(initialdir="/", title="Select A File",
                                                            filetypes=(("jpg files", "*.jpg"), ("all files", "*.*")))
-                print(root.filename)
+                path = "C:/Users/%username%/Desktop/FT_logs.txt"
+                if os.path.isfile(path) is True:
+                    with open(rf'C:\Users\ca8855176\Desktop\FT_logs.txt', 'a+') as f:
+                        f.write(root.filename + '\n')
+
+                else:
+                    filehandler = open(rf"C:/Users/ca8855176/Desktop/FT_logs.txt", "a")
+                    with open(rf'C:\Users\ca8855176\Desktop\FT_logs.txt', 'a+') as f:
+                        f.write(root.filename + '\n')
+
+
                 #shutil.copyfile(root.filename, rf"\\mnhazfs\nonword\halbanot\Both\{directory_name}\{directory_whoto}" )
 
             Label(text="Even & IDF", font=("Impact", 35, "bold"), fg="black", bg="white").place(x=470, y=180)
