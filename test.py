@@ -6,8 +6,6 @@ from tkinter import filedialog
 import os
 import time
 import shutil
-global a , b
-
 
 class Login:
     def __init__(self, root):
