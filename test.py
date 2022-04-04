@@ -155,7 +155,7 @@ class Login:
 
                 else:
                     filehandler = open(rf"C:/Users/{username}/Desktop/FT2_logs.txt", "a")
-                    with open(rf'C:\Users\{username}\Desktop\FT_logs.txt', 'a+') as f:
+                    with open(rf'C:\Users\{username}\Desktop\FT2_logs.txt', 'a+') as f:
                         f.write(a)
                 both_t_page()
 
