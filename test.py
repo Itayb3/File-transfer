@@ -46,18 +46,21 @@ class Login:
                         for line in file:
                             ff.append(line)
                 def copyx():
-                    tt = ''
+                    tt = 0
                     with open(fr'C:\Users\{username}\Desktop\FT_logs.txt') as file:
                         for line in file:
                             line = tt
 
                     for f in ff:
+                        os.system('copy %tt,%f')
+                        time.sleep(1)
 
-                        shutil.copyfile(src=f,dst=tt)
 
-                def delete_logs():
-                    os.remove(fr'C:\Users\{username}\Desktop\FT_logs.txt')
-                    os.remove(fr'C:\Users\{username}\Desktop\FT2_logs.txt')
+
+
+                #def delete_logs():
+                    #os.remove(fr'C:\Users\{username}\Desktop\FT_logs.txt')
+                    #os.remove(fr'C:\Users\{username}\Desktop\FT2_logs.txt')
 
 
 
@@ -82,7 +85,7 @@ class Login:
                 Label(self.root, textvariable=percent, bg="white").place(x=700, y=340)
                 file_copy()
                 copyx()
-                delete_logs()
+                #delete_logs()
                 start()
                 messagebox.showinfo(title=None, message="files uploaded successfully")
                 main_page()
@@ -241,3 +244,4 @@ label_bgImage = Label(root, image=bg)
 label_bgImage.place(x=0, y=0)
 obj = Login(root)
 root.mainloop()
+
