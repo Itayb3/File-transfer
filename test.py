@@ -6,6 +6,7 @@ from tkinter import filedialog
 import os
 import time
 import shutil
+import subprocess
 username=os.getlogin()
 
 class Login:
@@ -46,47 +47,78 @@ class Login:
                         for line in file:
                             ff.append(line)
                 def copyx():
-                    tt = 0
+                    tt = []
                     with open(fr'C:\Users\{username}\Desktop\FT_logs.txt') as file:
                         for line in file:
-                            line = tt
+                            tt.append(line.strip())
 
                     for f in ff:
-                        os.system('copy %tt,%f')
-                        time.sleep(1)
+                        print(f)
+                        for a in tt:
+                            shutil.copy(src=a,dst=f)
 
+                def delete_logs():
+                    os.remove(fr'C:\Users\{username}\Desktop\FT_logs.txt')
+                    os.remove(fr'C:\Users\{username}\Desktop\FT2_logs.txt')
 
-
-
-                #def delete_logs():
-                    #os.remove(fr'C:\Users\{username}\Desktop\FT_logs.txt')
-                    #os.remove(fr'C:\Users\{username}\Desktop\FT2_logs.txt')
-
-
-
-
-
-                def start():
-                    GB = 100
-                    download = 0
-                    speed = 1
-                    while download < GB:
-                        time.sleep(0.09)
-                        bar['value'] += (speed / GB) * 100
-                        download += speed
-                        percent.set(str(int((download / GB) * 100)) + "%" + "Uploading files")
-                        text.set(str(download) + "/" + str(GB) + " Uploading files")
-                        root.update_idletasks()
-
-                percent = StringVar()
-                text = StringVar()
-                bar = Progressbar(root, orient=HORIZONTAL, length=220)
-                bar.place(x=450, y=340)
-                Label(self.root, textvariable=percent, bg="white").place(x=700, y=340)
                 file_copy()
                 copyx()
-                #delete_logs()
-                start()
+                delete_logs()
+                messagebox.showinfo(title=None, message="files uploaded successfully")
+                main_page()
+
+            def files():
+
+                root.filename = filedialog.askopenfilename(initialdir="/", title="Select A File",
+                                                           filetypes=(("jpg files", "*.jpg"), ("all files", "*.*")))
+                path = f"C:/Users/{username}/Desktop/FT_logs.txt"
+                if os.path.isfile(path) is True:
+                    with open(rf'C:\Users\{username}\Desktop\FT_logs.txt', 'a+') as f:
+                        f.write(root.filename + '\n' )
+
+                else:
+                    filehandler = open(rf"C:/Users/{username}/Desktop/FT_logs.txt", "a")
+                    with open(rf'C:\Users\{username}\Desktop\FT_logs.txt', 'a+') as f:
+                        f.write(root.filename + '\n')
+
+
+            Label(text="Even & IDF", font=("Impact", 35, "bold"), fg="black", bg="white").place(x=470, y=180)
+            Button(cursor="hand2", text="Return", bd=0, command=main_page, font=("Goudy old style", 15),
+                   bg="#6162FF", fg="white").place(x=600, y=475, width=100, height=40)
+            Button(cursor="hand2", text="Upload files", bd=0, command=files, font=("Goudy old style", 15),
+                   fg="black").place(x=470, y=300, width=200, height=100)
+            Button(cursor="hand2", text="Confirm", bd=0, command=prog, font=("Goudy old style", 15),
+                   bg="#6162FF", fg="white").place(x=450, y=475, width=100, height=40)
+
+        def even_t_page():
+            Frame(root, bg="white", ).place(x=330, y=150, width=500, height=400)
+
+            def prog():
+                ff = []
+
+                def file_copy():
+                    with open(fr'C:\Users\{username}\Desktop\FT2_logs.txt') as file:
+                        for line in file:
+                            ff.append(line)
+
+                def copyx():
+                    tt = []
+                    with open(fr'C:\Users\{username}\Desktop\FT_logs.txt') as file:
+                        for line in file:
+                            tt.append(line.strip())
+
+                    for f in ff:
+                        print(f)
+                        for a in tt:
+                            shutil.copy(src=a, dst=f)
+
+                def delete_logs():
+                    os.remove(fr'C:\Users\{username}\Desktop\FT_logs.txt')
+                    os.remove(fr'C:\Users\{username}\Desktop\FT2_logs.txt')
+
+                file_copy()
+                copyx()
+                delete_logs()
                 messagebox.showinfo(title=None, message="files uploaded successfully")
                 main_page()
 
@@ -104,8 +136,7 @@ class Login:
                     with open(rf'C:\Users\{username}\Desktop\FT_logs.txt', 'a+') as f:
                         f.write(root.filename + '\n')
 
-
-            Label(text="Even & IDF", font=("Impact", 35, "bold"), fg="black", bg="white").place(x=470, y=180)
+            Label(text="Even", font=("Impact", 35, "bold"), fg="black", bg="white").place(x=470, y=180)
             Button(cursor="hand2", text="Return", bd=0, command=main_page, font=("Goudy old style", 15),
                    bg="#6162FF", fg="white").place(x=600, y=475, width=100, height=40)
             Button(cursor="hand2", text="Upload files", bd=0, command=files, font=("Goudy old style", 15),
@@ -113,25 +144,59 @@ class Login:
             Button(cursor="hand2", text="Confirm", bd=0, command=prog, font=("Goudy old style", 15),
                    bg="#6162FF", fg="white").place(x=450, y=475, width=100, height=40)
 
-        def even_t_page():
-            Frame(self.root, bg="white").place(x=330, y=150, width=500, height=400)
-            Label(text="Both", font=("Impact", 35, "bold"), fg="#6162FF", bg="white").place(x=500, y=180)
-            Button(cursor="hand2", text="Return", bd=0, command=main_page, font=("Goudy old style", 15),
-                   bg="#6162FF", fg="white").place(x=600, y=475, width=100, height=40)
-            Button(cursor="hand2", text="Confirm", bd=0, command=main_page, font=("Goudy old style", 15),
-                   bg="#6162FF", fg="white").place(x=450, y=475, width=100, height=40)
-            Label(text="Drag Files here", font=("Goudy old style", 15, "bold"), fg="black", bg="white").place(
-                x=480, y=250)
-
         def idf_t_page():
-            Frame(self.root, bg="white").place(x=330, y=150, width=500, height=400)
-            Label(text="Both", font=("Impact", 35, "bold"), fg="#6162FF", bg="white").place(x=500, y=180)
+            Frame(root, bg="white", ).place(x=330, y=150, width=500, height=400)
+
+            def prog():
+                ff = []
+
+                def file_copy():
+                    with open(fr'C:\Users\{username}\Desktop\FT2_logs.txt') as file:
+                        for line in file:
+                            ff.append(line)
+
+                def copyx():
+                    tt = []
+                    with open(fr'C:\Users\{username}\Desktop\FT_logs.txt') as file:
+                        for line in file:
+                            tt.append(line.strip())
+
+                    for f in ff:
+                        print(f)
+                        for a in tt:
+                            shutil.copy(src=a, dst=f)
+
+                def delete_logs():
+                    os.remove(fr'C:\Users\{username}\Desktop\FT_logs.txt')
+                    os.remove(fr'C:\Users\{username}\Desktop\FT2_logs.txt')
+
+                file_copy()
+                copyx()
+                delete_logs()
+                messagebox.showinfo(title=None, message="files uploaded successfully")
+                main_page()
+
+            def files():
+
+                root.filename = filedialog.askopenfilename(initialdir="/", title="Select A File",
+                                                           filetypes=(("jpg files", "*.jpg"), ("all files", "*.*")))
+                path = f"C:/Users/{username}/Desktop/FT_logs.txt"
+                if os.path.isfile(path) is True:
+                    with open(rf'C:\Users\{username}\Desktop\FT_logs.txt', 'a+') as f:
+                        f.write(root.filename + '\n')
+
+                else:
+                    filehandler = open(rf"C:/Users/{username}/Desktop/FT_logs.txt", "a")
+                    with open(rf'C:\Users\{username}\Desktop\FT_logs.txt', 'a+') as f:
+                        f.write(root.filename + '\n')
+
+            Label(text="IDF", font=("Impact", 35, "bold"), fg="black", bg="white").place(x=470, y=180)
             Button(cursor="hand2", text="Return", bd=0, command=main_page, font=("Goudy old style", 15),
                    bg="#6162FF", fg="white").place(x=600, y=475, width=100, height=40)
-            Button(cursor="hand2", text="Confirm", bd=0, command=main_page, font=("Goudy old style", 15),
+            Button(cursor="hand2", text="Upload files", bd=0, command=files, font=("Goudy old style", 15),
+                   fg="black").place(x=470, y=300, width=200, height=100)
+            Button(cursor="hand2", text="Confirm", bd=0, command=prog, font=("Goudy old style", 15),
                    bg="#6162FF", fg="white").place(x=450, y=475, width=100, height=40)
-            Label(text="Drag Files here", font=("Goudy old style", 15, "bold"), fg="black", bg="white").place(
-                x=480, y=250)
 
         def to_both():
             Frame(self.root, bg="white", ).place(x=330, y=150, width=500, height=400)
@@ -244,4 +309,5 @@ label_bgImage = Label(root, image=bg)
 label_bgImage.place(x=0, y=0)
 obj = Login(root)
 root.mainloop()
+
 
